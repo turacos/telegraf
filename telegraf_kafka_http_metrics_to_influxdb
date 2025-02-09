@@ -1,0 +1,25 @@
+[agent]
+  interval = "10s"
+  round_interval = true
+  metric_batch_size = 1000
+  metric_buffer_limit = 10000
+  collection_jitter = "0s"
+  flush_interval = "10s"
+  flush_jitter = "0s"
+  precision = ""
+  omit_hostname = false
+[[outputs.influxdb_v2]]
+  urls = ["http://localhost:8086"]
+  token = "$INFLUX_TOKEN"
+  organization = "myorga"
+  bucket = "http_metrics"
+[[inputs.kafka_consumer]]
+  brokers = ["xxx.xxx.xxx.xxx:9092"]
+  topics = ["http_metrics"]
+  offset = "newest"
+  max_message_len = 1000000
+  data_format = "json"
+  tag_keys = ["tags_application","tags_component","tags_state"]
+  json_name_key = "name"
+  json_time_key="timestamp"
+  json_time_format="unix"
