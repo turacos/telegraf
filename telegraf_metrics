@@ -1,0 +1,66 @@
+[agent]
+  interval = "10s"
+  round_interval = true
+  metric_batch_size = 1000
+  metric_buffer_limit = 10000
+  collection_jitter = "0s"
+  flush_interval = "10s"
+  flush_jitter = "0s"
+  precision = ""
+  omit_hostname = false
+[[outputs.kafka]]
+  brokers = ["xxx.xxx.xxx.xxx:9092"]
+  topic = "cpu_usage"
+  [outputs.kafka.tagpass]
+    kafka_topic = ["cpu"]
+[[outputs.kafka]]
+  brokers = ["xxx.xxx.xxx.xxx:9092"]
+  topic = "disk_usage"
+  [outputs.kafka.tagpass]
+    kafka_topic = ["disk"]
+[[outputs.kafka]]
+  brokers = ["xxx.xxx.xxx.xxx:9092"]
+  topic = "memory_usage"
+  [outputs.kafka.tagpass]
+    kafka_topic = ["memory"]
+[[outputs.kafka]]
+  brokers = ["xxx.xxx.xxx.xxx:9092"]
+  topic = "network_usage"
+  [outputs.kafka.tagpass]
+    kafka_topic = ["network"]
+[[outputs.kafka]]
+  brokers = ["xxx.xxx.xxx.xxx:9092"]
+  topic = "system_usage"
+  [outputs.kafka.tagpass]
+    kafka_topic = ["system"]
+[[outputs.kafka]]
+  brokers = ["xxx.xxx.xxx.xxx:9092"]
+  topic = "system_usage"
+  [outputs.kafka.tagpass]
+    kafka_topic = ["system"]
+[[inputs.cpu]]
+  percpu = true
+  totalcpu = true
+  collect_cpu_time = false
+  report_active = false
+  core_tags = false
+  [inputs.cpu.tags]
+    kafka_topic = "cpu"
+[[inputs.disk]]
+  ignore_fs = ["tmpfs", "devtmpfs", "devfs", "iso9660", "overlay", "aufs", "squashfs"]
+  [inputs.disk.tags]
+    kafka_topic = "disk"
+[[inputs.mem]]
+  [inputs.mem.tags]
+    kafka_topic = "memory"
+[[inputs.ethtool]]
+  interface_exclude = ["lo"]
+  [inputs.ethtool.tags]
+    kafka_topic = "network_ethtool"
+[[inputs.net]]
+  [inputs.net.tags]
+    kafka_topic = "network"
+[[inputs.system]]
+  [inputs.system.tags]
+    kafka_topic = "system"
+
