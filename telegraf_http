@@ -1,0 +1,19 @@
+[agent]
+  interval = "10s"
+  round_interval = true
+  metric_batch_size = 1000
+  metric_buffer_limit = 10000
+  collection_jitter = "0s"
+  flush_interval = "10s"
+  flush_jitter = "0s"
+  precision = ""
+  omit_hostname = false
+[[outputs.kafka]]
+  brokers = ["xxx.xxx.xxx.xxx:9092"]
+  topic = "http_metrics"
+  data_format = "json"
+[[inputs.http_listener_v2]]
+  service_address = ":9090"
+  paths = ["/metrics"]
+  methods = ["PUT"]
+  data_format = "influx"
