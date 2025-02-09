@@ -1,3 +1,3 @@
 # telegraf
 
-some configuration file to be used with telegraf/kafka/influxdb
+some configuration files to be used with telegraf/kafka/influxdb
