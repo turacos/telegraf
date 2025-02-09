@@ -33,11 +33,6 @@
   topic = "system_usage"
   [outputs.kafka.tagpass]
     kafka_topic = ["system"]
-[[outputs.kafka]]
-  brokers = ["xxx.xxx.xxx.xxx:9092"]
-  topic = "system_usage"
-  [outputs.kafka.tagpass]
-    kafka_topic = ["system"]
 [[inputs.cpu]]
   percpu = true
   totalcpu = true
