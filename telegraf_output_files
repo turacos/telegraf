@@ -1,0 +1,57 @@
+[agent]
+  interval = "1s"
+  round_interval = true
+  metric_batch_size = 1000
+  metric_buffer_limit = 10000
+  collection_jitter = "0s"
+  flush_interval = "1s"
+  flush_jitter = "0s"
+  precision = ""
+  omit_hostname = false
+[[outputs.file]]
+  files = ["/tmp/cpu_usage.out"]
+  data_format = "csv"
+  csv_timestamp_format = "unix"
+  csv_header = true
+  [outputs.file.tagpass]
+    file_topic = ["cpu"]
+[[outputs.file]]
+  files = ["/tmp/network_usage.out"]
+  data_format = "csv"
+  csv_timestamp_format = "unix"
+  csv_header = true
+  [outputs.file.tagpass]
+    file_topic = ["network"]
+[[outputs.file]]
+  files = ["/tmp/system_usage.out"]
+  data_format = "csv"
+  csv_timestamp_format = "unix"
+  csv_header = true
+  [outputs.file.tagpass]
+    file_topic = ["system"]
+[[outputs.file]]
+  files = ["/tmp/network_usage.out"]
+  data_format = "csv"
+  csv_timestamp_format = "unix"
+  csv_header = true
+  [outputs.file.tagpass]
+    file_topic = ["network"]
+[[inputs.cpu]]
+  percpu = true
+  totalcpu = true
+  collect_cpu_time = false
+  report_active = false
+  core_tags = false
+  [inputs.cpu.tags]
+    file_topic = "cpu"
+[[inputs.ethtool]]
+  interface_exclude = ["lo"]
+  [inputs.ethtool.tags]
+    file_topic = "network_ethtool"
+[[inputs.net]]
+  [inputs.net.tags]
+    file_topic = "network"
+[[inputs.system]]
+  [inputs.system.tags]
+    file_topic = "system"
+
